@@ -2,16 +2,28 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
     <link rel="stylesheet" href="./src/style.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
+    <title>Video Player</title>
   </head>
   <body>
-    <div class="videoContainer">
-      <video src="video.mp4" id="video"/>
+    <div class="video-container paused">
+      <div class="video-controls-container">
+        <div class="timeline-container"></div>
+        <div class="controls">
+          <button class="play-pause-btn">
+            <svg class="play-icon" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" />
+            </svg>
+            <svg class="pause-icon" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M14,19H18V5H14M6,19H10V5H6V19Z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <video src="video.mp4" />
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
