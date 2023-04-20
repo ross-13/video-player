@@ -5,7 +5,7 @@ const video = document.querySelector('video');
 
 playPauseBtn?.addEventListener('click', togglePlay)
 
-videoContainer?.addEventListener('click', togglePlay)
+video?.addEventListener('click', togglePlay)
 
 video?.addEventListener('play', () => {
     videoContainer?.classList.remove('paused');
