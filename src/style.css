@@ -58,6 +58,17 @@ video {
   transition: opacity 150ms ease-in-out;
 }
 
+.video-controls-container::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  z-index: -1;
+  pointer-events: none;
+  aspect-ratio: 6 / 1;
+  background: linear-gradient(to top, rgba(0, 0, 0, .75), transparent);
+}
+
 .video-controls-container .controls button:hover {
   opacity: 1;
 }
