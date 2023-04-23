@@ -9,6 +9,7 @@ const video = document.querySelector('video');
 const currentTimeEl = document.querySelector('.current-time');
 const totalTimeEl = document.querySelector('.total-time');
 const captionsBtn = document.querySelector('.captions-btn');
+const speedBtn = document.querySelector('.speed-btn')
 
 
 playPauseBtn?.addEventListener('click', togglePlay)
@@ -16,6 +17,8 @@ fullScreenBtn?.addEventListener('click', toggleFullScreenMode)
 theatherBtn?.addEventListener('click', toggleTheaterMode)
 miniPlayerBtn?.addEventListener('click', toggleMiniPlayerMode)
 muteBtn?.addEventListener('click', toggleMute)
+speedBtn?.addEventListener('click', changePlaybackSpeed)
+
 video?.addEventListener('loadeddata',() => {
     // @ts-ignore
     totalTimeEl.textContent = formatTime(video.duration)
@@ -158,4 +161,12 @@ function formatTime (time: number) {
 function skip(duration: number) {
     if( !video) return;
     video.currentTime += duration
+}
+
+function changePlaybackSpeed() {
+    if(!video) return;
+    let newPlaybackRate = video?.playbackRate + 0.25;
+    if (newPlaybackRate > 2 ) newPlaybackRate = 0.25;
+    video.playbackRate = newPlaybackRate;
+    speedBtn!.textContent = `${newPlaybackRate}x`
 }
