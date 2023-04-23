@@ -6,6 +6,8 @@ const muteBtn = document.querySelector('.mute-btn');
 const volumeSlider = document.querySelector('.volume-slider');
 const videoContainer = document.querySelector('.video-container');
 const video = document.querySelector('video');
+const currentTimeEl = document.querySelector('.current-time');
+const totalTimeEl = document.querySelector('.total-time');
 
 
 playPauseBtn?.addEventListener('click', togglePlay)
@@ -13,6 +15,14 @@ fullScreenBtn?.addEventListener('click', toggleFullScreenMode)
 theatherBtn?.addEventListener('click', toggleTheaterMode)
 miniPlayerBtn?.addEventListener('click', toggleMiniPlayerMode)
 muteBtn?.addEventListener('click', toggleMute)
+video?.addEventListener('loadeddata',() => {
+    // @ts-ignore
+    totalTimeEl.textContent = formatTime(video.duration)
+})
+video?.addEventListener('timeupdate', () => {
+    // @ts-ignore
+    currentTimeEl.textContent = formatTime(video.currentTime)
+})
 video?.addEventListener('click', togglePlay)
 video?.addEventListener('volumechange', () => {
     if( !videoContainer || !volumeSlider) return;
@@ -63,6 +73,14 @@ document.addEventListener('keydown', (e: any) => {
         case 'm':
             toggleMute()
             break
+        case 'arrowleft':
+        case 'j':
+            skip(-5);
+            break
+        case 'arrowright':
+        case 'l':
+            skip(5);
+            break
     }
 })
 
@@ -105,4 +123,23 @@ function togglePlay() {
 function toggleMute() {
     if (!video) return;
     video.muted = !video.muted
+}
+
+const leadingZeroFormatter = Intl.NumberFormat(undefined, {
+    minimumIntegerDigits: 2
+})
+function formatTime (time: number) {
+    const seconds = Math.floor(time % 60);
+    const minutes = Math.floor(time / 60) % 60;
+    const hours = Math.floor(time / 3600); 
+    if ( hours === 0) {
+        return `${minutes}:${leadingZeroFormatter.format(seconds)}`
+    } else {
+        return `${hours}:${leadingZeroFormatter.format(minutes)}:${leadingZeroFormatter.format(seconds)}`
+    }
+}
+
+function skip(duration: number) {
+    if( !video) return;
+    video.currentTime += duration
 }
