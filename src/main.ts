@@ -82,6 +82,9 @@ document.addEventListener('keydown', (e: any) => {
         case 'l':
             skip(5);
             break
+        case 'c':
+            toggleCaptions()
+            break;
     }
 })
 
