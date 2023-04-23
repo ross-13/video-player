@@ -10,8 +10,8 @@ const currentTimeEl = document.querySelector('.current-time');
 const totalTimeEl = document.querySelector('.total-time');
 const captionsBtn = document.querySelector('.captions-btn');
 const speedBtn = document.querySelector('.speed-btn');
-const previewImg = document.querySelector('.preview-img');
-const thumbnailImg = document.querySelector('.thumbnail-img');
+const previewImg = document.querySelector('.preview-img') as HTMLImageElement;
+const thumbnailImg = document.querySelector('.thumbnail-img')  as HTMLImageElement;
 const timeLineContainer = document.querySelector('.timeline-container');
 
 playPauseBtn?.addEventListener('click', togglePlay)
@@ -141,17 +141,19 @@ function toggleScrubbing(e:any) {
 }
 
 function handleTimelineUpdate(e:any) {
-    if(!timeLineContainer || !video) return;
+    if(!timeLineContainer || !video || !previewImg || !thumbnailImg) return;
 
     const rect = timeLineContainer?.getBoundingClientRect()
     const percent = Math.min(Math.max(0, e.x - rect.x), rect.width) / rect.width;
-    // const previewImgNumber = Math.max(1, Math.floor((percent * video.duration) / 10))
-    // const previewImg =  TODO: 
+    const previewImgNumber = Math.max(1, Math.floor((percent * video.duration) / 10))
+    const previewImgSrc = `assets/previewImgs/preview${previewImgNumber}.jpg`
+    previewImg.src = previewImgSrc
     //@ts-ignore
     timeLineContainer.style.setProperty("--preview-position", percent)
 
     if (isScrubbing) {
         e.preventDefault();
+        thumbnailImg.src = previewImgSrc
         //@ts-ignore
         timeLineContainer.style.setProperty("--progress-position", percent)
     }
