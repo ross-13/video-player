@@ -155,6 +155,9 @@ video {
   gap: .25rem
 }
 
+.video-container.captions .captions-btn {
+  border-bottom: 3px solid red;
+}
 
 /* .volume-slider {
   -webkit-appearance: none;

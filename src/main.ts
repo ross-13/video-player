@@ -8,6 +8,7 @@ const videoContainer = document.querySelector('.video-container');
 const video = document.querySelector('video');
 const currentTimeEl = document.querySelector('.current-time');
 const totalTimeEl = document.querySelector('.total-time');
+const captionsBtn = document.querySelector('.captions-btn');
 
 
 playPauseBtn?.addEventListener('click', togglePlay)
@@ -95,6 +96,18 @@ document.addEventListener('enterpictureinpicture', () => {
 document.addEventListener('leavepictureinpicture', () => {
     videoContainer?.classList.remove('mini-player')
 })
+
+const captions = video!.textTracks[0]
+captions.mode = 'hidden'
+
+captionsBtn?.addEventListener('click', toggleCaptions)
+
+function toggleCaptions() {
+    const isHidden = captions.mode === 'hidden'
+
+    captions.mode = isHidden ? 'showing': 'hidden'
+    videoContainer?.classList.toggle('captions', isHidden)
+}
 
 function toggleTheaterMode() {
     videoContainer?.classList.toggle('theater');
